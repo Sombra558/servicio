@@ -1,7 +1,7 @@
 <template>
     <div>
                 
-                    {{ new Date().getFullYear() }} — <strong>Alejandra Marcano Rojas</strong>
+                    {{ new Date().getFullYear() }} — <strong>Prestadores de Servicio, Ingeniería de Sistemas 2019-2020</strong>
     
     </div>
 </template>

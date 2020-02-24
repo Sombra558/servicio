@@ -1,7 +1,8 @@
 <template>
 <div>
   <h2 class="title">Lista de <strong v-if="accion=='proyectos'">Proyectos</strong> <strong v-else-if="accion=='servicios'">Servicios de</strong> <strong v-else>Estudiantes Actualmente Cursando</strong>   Servicio Comunitario</h2>
-  <v-simple-table>
+  
+ <v-simple-table>
     <template v-slot:default v-if="accion=='proyectos'">
       <thead>
         <tr>
