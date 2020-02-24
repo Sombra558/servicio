@@ -52,6 +52,7 @@ class PublicoController extends Controller
     public function EstudianteFind($cedula)
     {
         $estudiante = Alumnos::find($cedula);
+        $servicio = Proyecto::find($estudiante->servicio_id);
         $proyecto = Proyecto::find($estudiante->proyecto_id);
         $horas_totales_de_estudiante=$estudiante->horas_acumuladas + $estudiante->horas_acumuladas_servicio;
         $progreso = ($horas_totales_de_estudiante*100)/120;
@@ -59,6 +60,7 @@ class PublicoController extends Controller
         ->with('estudiante', $estudiante)
         ->with('horas_totales_de_estudiante', $horas_totales_de_estudiante)
         ->with('proyecto', $proyecto)
+        ->with('servicio', $servicio)
         ->with('progreso', $progreso);
     
     }
