@@ -53,12 +53,14 @@ class PublicoController extends Controller
     {
         $estudiante = Alumnos::find($cedula);
         $proyecto = Proyecto::find($estudiante->proyecto_id);
+        $servicio = Proyecto::find($estudiante->servicio_id);
         $horas_totales_de_estudiante=$estudiante->horas_acumuladas + $estudiante->horas_acumuladas_servicio;
         $progreso = ($horas_totales_de_estudiante*100)/120;
         return view('/pages/detallesestudiante')
         ->with('estudiante', $estudiante)
         ->with('horas_totales_de_estudiante', $horas_totales_de_estudiante)
         ->with('proyecto', $proyecto)
+        ->with('servicio', $servicio)
         ->with('progreso', $progreso);
     
     }

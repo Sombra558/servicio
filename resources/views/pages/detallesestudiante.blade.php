@@ -7,7 +7,7 @@
             <v-content>
             <v-container>
 
-            <v-flex  class="mx-auto" xs12 md12>
+            <v-flex style="margin-botton:40px"  class="mx-auto" xs12 md12>
                              
                              <h3>Detalles de Estudiante</h3>
                              <v-card
@@ -58,9 +58,9 @@
 
           
         </v-flex>
-        <v-flex  class="mx-auto" xs12 md12>
+        <v-flex  style="margin-botton:40px"  class="mx-auto" xs12 md12>
                              
-                             <h3>Detalles de Proyecto</h3>
+                             <h3>Detalles de Proyecto de Servicio Comunitario</h3>
                              <v-card
                         class="mx-auto"
                 max-width="100%"
@@ -95,6 +95,52 @@
                         </v-flex>
                         <v-flex class="text--primary text-center" xs12> 
                         <a href="/proyecto-get-publico/{{$proyecto->codigo}}">Detalles</a>
+                        </v-flex>
+                </v-layout>
+                </v-card-text>
+               
+                
+            </v-card>
+
+          
+        </v-flex>
+        <v-flex  class="mx-auto" xs12 md12>
+                             
+                             <h3>Detalles de Servicio Comunitario</h3>
+                             <v-card
+                        class="mx-auto"
+                max-width="100%"
+            >
+                <v-card-title class="texteando">Titulo: {{$servicio->titulo}}</v-card-title>
+                 <v-layout row wrap justify-space-between="">
+                      <v-card-subtitle class="pb-0">Comunidad: {{$servicio->comunidad}}</v-card-subtitle>
+                <v-card-subtitle class="pb_0">Código: {{$servicio->codigo}}</v-card-subtitle>
+                 </v-layout>
+                
+                 <v-card-text>
+                     <v-layout row wrap>
+                        <v-flex class="text--primary text-left" xs6>
+                                <div class="texteando">Objetivo General:</div>
+                                {{$servicio->objGeneral}}
+                        </v-flex>
+                        <v-flex class="text--primary text-right" xs6>
+                                <div class="texteando">Estado:</div>
+                           
+                           
+                                    @if ($servicio->estado==1)
+                                    <h2> <span style="font-size: 18px">En Proceso</span> </h2>
+                                    @endif
+                                    @if ($servicio->estado==2)
+                                    <h2> <span style="font-size: 18px">Terminado</span> </h2>
+                                    @endif
+                                    @if ($servicio->estado==0)
+                                    <h2> <span style="font-size: 18px">pendiente</span> </h2>
+                                    @endif
+                               
+                             
+                        </v-flex>
+                        <v-flex class="text--primary text-center" xs12> 
+                        <a href="/proyecto-get-publico/{{$servicio->codigo}}">Detalles</a>
                         </v-flex>
                 </v-layout>
                 </v-card-text>
