@@ -9,7 +9,7 @@ class Proyecto extends Model
     protected $table = 'proyectos';
     protected $primaryKey = 'codigo';
     protected $fillable = [
-        'codigo', 'titulo', 'objGeneral','carrera','inicio','fin','comunidad','tutor_id','estado'
+        'codigo', 'titulo', 'objGeneral','carrera','tipo','inicio','fin','comunidad','tutor_id','estado'
     ];
     public function Objetivos(){
         return $this->hasMany('App\Objetivo');

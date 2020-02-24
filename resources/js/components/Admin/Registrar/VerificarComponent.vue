@@ -36,11 +36,20 @@
                             </v-flex>
                             <v-flex  xs10  offset-xs1>
                                         <v-select
-                                            label="carreras"
+                                            label="Carreras"
                                             :items="carreras"
                                             v-model="proyecto.carrera"
                                             item-text="carrera"
                                             item-value='carrera'
+                                        ></v-select>
+                            </v-flex>
+                            <v-flex  xs10  offset-xs1>
+                                        <v-select
+                                            label="Tipo"
+                                            :items="tipos"
+                                            v-model="proyecto.tipo"
+                                            item-text="tipo"
+                                            item-value='tipo'
                                         ></v-select>
                             </v-flex>
                             <div class="flexi">
@@ -83,6 +92,7 @@ import 'toastr/build/toastr.css';
                         objGeneral: '',
                         comunidad:'',
                         carrera:'',
+                        tipo:'',
                         inicio: '',
                         fin: '',
                     },
@@ -90,6 +100,16 @@ import 'toastr/build/toastr.css';
                     {
                     id:1,
                     carrera:'Ingenieria en Sistemas'
+                    }
+                ],
+                tipos:[
+                    {
+                    id:1,
+                    tipo:'Servicio Comunitario'
+                    },
+                    {
+                    id:2,
+                    tipo:'Proyecto Servicio Comunitario'
                     }
                 ]
               
@@ -104,6 +124,7 @@ import 'toastr/build/toastr.css';
                             objGeneral: this.proyecto.objGeneral,
                             comunidad: this.proyecto.comunidad,
                             carrera: this.proyecto.carrera,
+                            tipo: this.proyecto.tipo,
                             inicio: this.proyecto.inicio,
                             fin: this.proyecto.fin,
                         }).then(response => {

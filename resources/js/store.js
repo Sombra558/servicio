@@ -6,6 +6,7 @@ export default new Vuex.Store({
     state:{
       proyectos_publico:[],
        proyectos:[],
+       servicios:[],
        pendientes:[],
        procesos:[],
        terminados:[],
@@ -23,6 +24,10 @@ export default new Vuex.Store({
             state.proyectos = proyectos;
            
         },
+        setServicios(state, servicios){
+          state.servicios = servicios;
+         
+      },
         setProyectosPublicos(state, proyectos_publico){
           state.proyectos_publico = proyectos_publico;
          
@@ -80,6 +85,11 @@ export default new Vuex.Store({
             let proyectos = state.proyectos;
             
             return proyectos;
+          },
+          filteredServicio (state) {
+            let servicios = state.servicios;
+            
+            return servicios;
           },
           filteredPendientes (state) {
             let pendientes = state.pendientes;

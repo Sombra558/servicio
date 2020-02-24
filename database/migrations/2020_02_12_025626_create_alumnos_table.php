@@ -18,8 +18,11 @@ class CreateAlumnosTable extends Migration
             $table->string('nombre');
             $table->string('apellido');
             $table->integer('horas_acumuladas')->default(0);
-            $table->BigInteger('proyecto_id');
+            $table->integer('horas_acumuladas_servicio')->default(0);
+            $table->BigInteger('proyecto_id')->nullable();
             $table->foreign('proyecto_id')->references('codigo')->on('proyectos')->onDelete('cascade');
+            $table->BigInteger('servicio_id')->nullable();
+            $table->foreign('servicio_id')->references('codigo')->on('proyectos')->onDelete('cascade');
             $table->timestamps();
         });
     }

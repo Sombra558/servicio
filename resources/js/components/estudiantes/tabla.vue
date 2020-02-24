@@ -1,14 +1,14 @@
 <template>
 <div>
-  <h2 class="title">Lista de <strong v-if="accion=='proyectos'">Proyectos</strong> <strong v-else>Estudiantes Actualmente Cursando</strong>   Servicio Comunitario</h2>
+  <h2 class="title">Lista de <strong v-if="accion=='proyectos'">Proyectos</strong> <strong v-else-if="accion=='servicios'">Servicios de</strong> <strong v-else>Estudiantes Actualmente Cursando</strong>   Servicio Comunitario</h2>
   <v-simple-table>
     <template v-slot:default v-if="accion=='proyectos'">
       <thead>
         <tr>
-          <th class="text-left">codigo</th>
-          <th class="text-left">titulo</th>
+          <th class="text-left">Codigo</th>
+          <th class="text-left">Titulo</th>
           
-          <th class="text-left">estado</th>
+          <th class="text-left">Estado</th>
           
         </tr>
       </thead>
@@ -24,12 +24,34 @@
         </tr>
       </tbody>
     </template>
+    <template v-slot:default v-else-if="accion=='servicios'">
+      <thead>
+        <tr>
+          <th class="text-left">Codigo</th>
+          <th class="text-left">Titulo</th>
+          
+          <th class="text-left">Estado</th>
+          
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="proyecto in filteredServicio" :key="proyecto.codigo">
+                <td>{{proyecto.codigo}}</td>
+                <td>{{proyecto.titulo}}</td>
+                <td v-if="proyecto.estado==0">pendiente</td>
+                <td v-if="proyecto.estado==1">En Proceso</td>
+                <td v-if="proyecto.estado==2">Terminado</td>
+                <td ><a :href="'/proyecto-get-publico/'+proyecto.codigo">Detalles</a></td>
+          
+        </tr>
+      </tbody>
+    </template>
     <template v-slot:default v-else>
       <thead>
         <tr>
-          <th class="text-left">cedula</th>
-          <th class="text-left">nombre</th>
-          <th class="text-left">apellido</th>
+          <th class="text-left">Cédula</th>
+          <th class="text-left">Nombre</th>
+          <th class="text-left">Apellido</th>
           
           
         </tr>
@@ -59,7 +81,7 @@ import {mapGetters} from 'vuex';
             alumnos:[]
         }),
         computed: {
-        ...mapGetters(['filteredProyectosPublicos','filteredEstudiantes']),
+        ...mapGetters(['filteredProyectosPublicos','filteredEstudiantes','filteredServicio']),
       
         },
         mounted () {
