@@ -347,7 +347,8 @@
                             <td>{{ item2.nombre }}</td>
                             <td>{{ item2.apellido }}</td>
                             <td>{{ item2.cedula }}</td>
-                            <td>{{ item2.horas_acumuladas }}</td>
+                            <td v-if="proyecto.tipo=='Proyecto Servicio Comunitario'">{{ item2.horas_acumuladas }}</td>
+                                        <td v-else>{{ item2.horas_acumuladas_servicio }}</td>
                             <td>editar-eliminar</td>
                             
                         </tr>
@@ -424,9 +425,15 @@
                                     <tr v-for="alum in filteredEstudiantes" :key="alum.cedula">
                                         <td>{{ alum.nombre }}</td>
                                         <td>{{ alum.apellido }}</td>
-                                        <td>{{ alum.horas_acumuladas }}</td>
-                                        <td><v-btn @click.prevent=" AsignarHoras(alum.cedula,alum.horas_acumuladas,
-                                        item.horas_asignadas)">asignar horas</v-btn></td>
+                                        <td v-if="proyecto.tipo=='Proyecto Servicio Comunitario'">{{ alum.horas_acumuladas }}</td>
+                                        <td v-else>{{ alum.horas_acumuladas_servicio }}</td>
+                                        <td v-if="proyecto.tipo=='Proyecto Servicio Comunitario'"><v-btn @click.prevent=" AsignarHoras(alum.cedula,alum.horas_acumuladas,
+                                        item.horas_asignadas,proyecto.codigo)">asignar horas Proyecto</v-btn>
+                                        </td>
+                                        <td v-else>
+                                            <v-btn @click.prevent=" AsignarHoras(alum.cedula,alum.horas_acumuladas_servicio,
+                                            item.horas_asignadas,proyecto.codigo)">asignar horas Servicio</v-btn>
+                                        </td>
                                     </tr>
                                 </tbody>
                                 </template>
@@ -627,12 +634,14 @@ import 'bootstrap-sweetalert/dist/sweetalert.js';
             });
         
         },
-        AsignarHoras(id,horas_acu,horas_asig){
+        AsignarHoras(id,horas_acu,horas_asig,codigo){
             
             var url = '/asignar-horas/'+id;
             horas_acu=horas_acu + horas_asig;
             axios.put(url,{
                 horas_acumuladas:horas_acu,
+                codigo:codigo,
+
             }).then(response => { 
                 var estudiantessurl = '/get-estudiantes/'+this.ruta;
                 axios.get(estudiantessurl).then(response => {

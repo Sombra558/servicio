@@ -7,7 +7,7 @@
             <v-flex  xs10  offset-xs1>
                     <h1>Bienvenido al Control Administrativo de Servicio Comunitario</h1>
                     <br>
-                    <h4>Propuestas</h4>
+                    <h4>Datos</h4>
                    
                      <v-layout row wrap >
                          

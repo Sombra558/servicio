@@ -43,6 +43,15 @@
                                             item-value='carrera'
                                         ></v-select>
                             </v-flex>
+                            <v-flex  xs10  offset-xs1>
+                                        <v-select
+                                            label="Tipo"
+                                            :items="tipos"
+                                            v-model="proyecto.tipo"
+                                            item-text="tipo"
+                                            item-value='tipo'
+                                        ></v-select>
+                            </v-flex>
                             <div class="flexi">
                                 <div>
                                 <p>Fecha de Inicio</p>
@@ -83,6 +92,7 @@ import 'toastr/build/toastr.css';
                         objGeneral: '',
                         comunidad:'',
                         carrera:'',
+                        tipo:'',
                         inicio: '',
                         fin: '',
                     },
@@ -115,6 +125,16 @@ import 'toastr/build/toastr.css';
                     id:7,
                     carrera:'Arquitectura'
                     }
+                ],
+                tipos:[
+                    {
+                    id:1,
+                    tipo:'Servicio Comunitario'
+                    },
+                    {
+                    id:2,
+                    tipo:'Proyecto Servicio Comunitario'
+                    }
                 ]
               
             }
@@ -128,6 +148,7 @@ import 'toastr/build/toastr.css';
                             objGeneral: this.proyecto.objGeneral,
                             comunidad: this.proyecto.comunidad,
                             carrera: this.proyecto.carrera,
+                            tipo: this.proyecto.tipo,
                             inicio: this.proyecto.inicio,
                             fin: this.proyecto.fin,
                         }).then(response => {

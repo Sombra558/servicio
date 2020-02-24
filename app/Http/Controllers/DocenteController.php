@@ -47,7 +47,7 @@ class DocenteController extends Controller
     }
     public function AlumnosDelProyecto($id)
     {
-        $Alumnos = Alumnos::where('proyecto_id','=',$id)->get();
+        $Alumnos = Alumnos::where('proyecto_id','=',$id)->orwhere('servicio_id','=',$id)->get();
         return $Alumnos;
     }
     public function ActividadesDelProyecto($id)
@@ -62,9 +62,24 @@ class DocenteController extends Controller
     }
     public function Asignarhoras(Request $request, $cedula)
     {
-        Alumnos::find($cedula)->update([
-            'horas_acumuladas' => request('horas_acumuladas'),
+        
+        $proyecto=Proyecto::find($request->codigo);
+     
+        if($proyecto->tipo=="Proyecto Servicio Comunitario"){
+         
+            Alumnos::find($cedula)->update([
+                'horas_acumuladas' => request('horas_acumuladas'),
             ]);
+        }
+        if($proyecto->tipo=="Servicio Comunitario") {
+        
+            Alumnos::find($cedula)->update([
+                'horas_acumuladas_servicio' => request('horas_acumuladas'),
+            ]);
+        }
+        
+        
+        
         return;
     }
 }

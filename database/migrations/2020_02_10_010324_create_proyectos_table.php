@@ -21,6 +21,7 @@ class CreateProyectosTable extends Migration
             $table->date('fin');
             $table->string('comunidad');
             $table->string('carrera');
+            $table->string('tipo');
             $table->unsignedBigInteger('tutor_id')->nullable();
             $table->foreign('tutor_id')->references('id')->on('users')->onDelete('cascade');
             $table->integer('estado')->default(0);

@@ -17,8 +17,12 @@ Route::get('/', function () {
 Route::get('/proyectos-servicio-comunitario', function () {
     return view('pages.proyectos');
 });
+Route::get('/servicio-comunitario', function () {
+    return view('pages.servicio');
+});
 Route::get('/alumnoscursando', 'PublicoController@Alumnos');
 Route::get('/proyectosdeservicio', 'PublicoController@Proyectos');
+Route::get('/proyectosdeservicioscomu', 'PublicoController@Servicios');
 Route::get('/proyecto-get-publico/{codigo}', 'PublicoController@ProyectosFind');
 Route::get('/estudiante-get-publico/{cedula}', 'PublicoController@EstudianteFind');
 

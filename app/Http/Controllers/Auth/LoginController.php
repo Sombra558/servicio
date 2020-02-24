@@ -25,7 +25,7 @@ class LoginController extends Controller
         if (auth()->user()->is_admin) {
             return '/ControlAdmin';
         }
-        if (auth()->user()->rol_id==2) {
+        if (auth()->user()->rol_id=2) {
             return '/Docente';
         }
         return '/';

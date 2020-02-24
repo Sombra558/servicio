@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Alumnos;
+use App\Proyecto;
 class EstudiantesController extends Controller
 {
     /**
@@ -42,13 +43,41 @@ class EstudiantesController extends Controller
             'proyecto_id'=>'required',
             
         ]);
-        Alumnos::create([
-            'cedula' => $request->cedula,
-            'nombre' => $request->nombre,
-            'apellido' => $request->apellido,
-            'proyecto_id' => $request->proyecto_id,
+
+        if (Alumnos::find($request->cedula)){
+            $alumnos=Alumnos::find($request->cedula);
+            $proyecto=Proyecto::find($request->proyecto_id);
             
-        ]);
+            if($proyecto->tipo=="Servicio Comunitario"){
+                $alumnos->update([
+                    'servicio_id' => request('proyecto_id'),
+                ]);
+            }if($proyecto->tipo=="Proyecto Servicio Comunitario"){
+                $alumnos->update([
+                    'proyecto_id' => request('proyecto_id'),
+                ]);
+            }
+        }
+        else{
+            $proyecto=Proyecto::find($request->proyecto_id);
+            if($proyecto->tipo=="Servicio Comunitario"){
+                Alumnos::create([
+                    'cedula' => $request->cedula,
+                    'nombre' => $request->nombre,
+                    'apellido' => $request->apellido,
+                    'servicio_id' => $request->proyecto_id,
+                ]);
+            }else{
+                Alumnos::create([
+                    'cedula' => $request->cedula,
+                    'nombre' => $request->nombre,
+                    'apellido' => $request->apellido,
+                    'proyecto_id' => $request->proyecto_id,
+                ]);
+            }
+           
+        }
+      
         return;
     }
 

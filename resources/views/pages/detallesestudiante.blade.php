@@ -23,7 +23,7 @@
                 <v-card-text class="text--primary">
                 
                 <div class="texteando">Horas Acumuladas:</div>
-                <div>{{$estudiante->horas_acumuladas}}
+                <div>{{$horas_totales_de_estudiante}}
                 <v-progress-linear
                 color="light-blue"
                 height="10"

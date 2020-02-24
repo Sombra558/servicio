@@ -19,6 +19,7 @@ class CreateActividadsTable extends Migration
             $table->integer('horas_asignadas');
             $table->BigInteger('proyecto_id');
             $table->foreign('proyecto_id')->references('codigo')->on('proyectos')->onDelete('cascade');
+           
             $table->timestamps();
         });
     }

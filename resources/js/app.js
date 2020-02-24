@@ -24,6 +24,10 @@ const app = new Vue({
         axios.get(urlKeeps).then(response => {
         this.$store.commit('setProyectos',response.data)
         });
+        var urlKeepsss = '/proyectosdeservicioscomu';
+        axios.get(urlKeepsss).then(response => {
+        this.$store.commit('setServicios',response.data)
+        });
         var urlKeeps1 = '/get-pendientes';
         axios.get(urlKeeps1).then(response => {
         this.$store.commit('setPendientes',response.data)
