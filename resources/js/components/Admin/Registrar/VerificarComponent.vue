@@ -36,7 +36,7 @@
                             </v-flex>
                             <v-flex  xs10  offset-xs1>
                                         <v-select
-                                            label="carreras"
+                                            label="Carreras"
                                             :items="carreras"
                                             v-model="proyecto.carrera"
                                             item-text="carrera"
@@ -90,6 +90,30 @@ import 'toastr/build/toastr.css';
                     {
                     id:1,
                     carrera:'Ingenieria en Sistemas'
+                    },
+                    {
+                    id:2,
+                    carrera:'Ingenieria Electronica'
+                    },
+                    {
+                    id:3,
+                    carrera:'Ingenieria Electrica'
+                    },
+                    {
+                    id:4,
+                    carrera:'Ingenieria Civil'
+                    },
+                    {
+                    id:5,
+                    carrera:'Ingenieria en Mantenimiento mecanico'
+                    },
+                    {
+                    id:6,
+                    carrera:'Ingenieria Industrial'
+                    },
+                    {
+                    id:7,
+                    carrera:'Arquitectura'
                     }
                 ]
               
