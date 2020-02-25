@@ -8,7 +8,7 @@
         <tr>
           <th class="text-left">Codigo</th>
           <th class="text-left">Titulo</th>
-          
+          <th class="text-left">Objetivo General</th>
           <th class="text-left">Estado</th>
           
         </tr>
@@ -17,6 +17,7 @@
         <tr v-for="proyecto in filteredProyectosPublicos" :key="proyecto.codigo">
                 <td>{{proyecto.codigo}}</td>
                 <td>{{proyecto.titulo}}</td>
+                <td>{{proyecto.objGeneral}}</td>
                 <td v-if="proyecto.estado==0">pendiente</td>
                 <td v-if="proyecto.estado==1">En Proceso</td>
                 <td v-if="proyecto.estado==2">Terminado</td>
@@ -30,7 +31,7 @@
         <tr>
           <th class="text-left">Codigo</th>
           <th class="text-left">Titulo</th>
-          
+          <th class="text-left">Objetivo General</th>
           <th class="text-left">Estado</th>
           
         </tr>
@@ -39,6 +40,7 @@
         <tr v-for="proyecto in filteredServicio" :key="proyecto.codigo">
                 <td>{{proyecto.codigo}}</td>
                 <td>{{proyecto.titulo}}</td>
+                <td>{{proyecto.objGeneral}}</td>
                 <td v-if="proyecto.estado==0">pendiente</td>
                 <td v-if="proyecto.estado==1">En Proceso</td>
                 <td v-if="proyecto.estado==2">Terminado</td>
