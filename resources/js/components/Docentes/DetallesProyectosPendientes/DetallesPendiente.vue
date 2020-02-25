@@ -548,6 +548,7 @@ import 'bootstrap-sweetalert/dist/sweetalert.js';
                                 proyecto_codigo:pro,
                                 descripcion: this.objetivo.descripcion,
                         }).then(response => {
+                            this.objetivo.descripcion='';
                             var objetivosurl = '/get-objetivos/'+this.ruta;
                             axios.get(objetivosurl).then(response => {
                             this.$store.commit('setObjetivos',response.data);        
@@ -562,6 +563,9 @@ import 'bootstrap-sweetalert/dist/sweetalert.js';
                                 cedula:this.estudiante.cedula,
                                 proyecto_id:idpro,      
                         }).then(response => {
+                                this.estudiante.nombre='';
+                                this.estudiante.apellido='';
+                                this.estudiante.cedula='';
                              var estudiantessurl = '/get-estudiantes/'+this.ruta;
                                     axios.get(estudiantessurl).then(response => {
                                 this.$store.commit('setEstudiantes',response.data);        
@@ -582,6 +586,8 @@ import 'bootstrap-sweetalert/dist/sweetalert.js';
                                 horas_asignadas:this.actividad.horas_asignadas,
                                 proyecto_id:idapro,      
                         }).then(response => {
+                            this.actividad.descripcion='';
+                            this.actividad.horas_asignadas='';
                              var actividadessurl = '/get-actividades/'+this.ruta;
                                 axios.get(actividadessurl).then(response => {
                             this.$store.commit('setActividades',response.data);        
@@ -600,6 +606,8 @@ import 'bootstrap-sweetalert/dist/sweetalert.js';
             axios.post(url,formData,  {
             headers: { "Content-Type": "multipart/form-data" }
         }).then(response => {
+                this.imageni.semana='';
+                this.imageni.image='';
                 var actividadesimagesurl = '/get-imagenes/'+this.ruta;
                 axios.get(actividadesimagesurl).then(response => {
                this.$store.commit('setImagenes',response.data);  

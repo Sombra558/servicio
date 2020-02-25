@@ -1,6 +1,171 @@
 <template>
     <div>
-   
+        <v-dialog v-if="proyecto.estado==0"
+                        v-model="dialog"
+                        width="500"
+                        >
+                                <template v-slot:activator="{ on }">
+                                    <v-btn
+                                    color="blue lighten-2"
+                                    dark
+                                    v-on="on"
+                                    >
+                                    Editar Proyecto
+                                    </v-btn>
+                                </template>
+
+                                <v-card>
+                                    <v-card-title
+                                    class="headline grey lighten-2"
+                                    primary-title
+                                    >
+                                    Editando Proyecto
+                                    </v-card-title>
+                                    <v-form @submit.prevent="" >
+                            <v-container fluid grid-list-md text-xs-center>
+                            <v-layout row wrap>
+                                 
+                               
+                        
+                             
+                              
+                            <v-flex xs12 md12>
+                                <v-divider></v-divider>
+                             <v-btn type="submit"  @click="dialog = false">Guardar</v-btn>
+                            </v-flex>
+                           
+                             </v-layout>
+                             </v-container> 
+                             </v-form>
+                                    
+
+                                    <v-divider></v-divider>
+
+                                    <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn
+                                        color="primary"
+                                        text
+                                        @click="dialog = false"
+                                    >
+                                        Cerrar
+                                    </v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-dialog>
+                            <v-dialog v-if="proyecto.estado==0"
+                        v-model="dialog2"
+                        width="500"
+                        >
+                                <template v-slot:activator="{ on }">
+                                    <v-btn
+                                    color="blue lighten-2"
+                                    dark
+                                    v-on="on"
+                                    >
+                                    Eliminar Proyecto
+                                    </v-btn>
+                                </template>
+
+                                <v-card>
+                                    <v-card-title
+                                    class="headline grey lighten-2"
+                                    primary-title
+                                    >
+                                    Seguro que desea eliminar el proyecto
+                                    </v-card-title>
+                                    <v-form @submit.prevent="" >
+                            <v-container fluid grid-list-md text-xs-center>
+                            <v-layout row wrap>
+                                 
+                               
+                        
+                             
+                              
+                            <v-flex xs12 md12>
+                                <v-divider></v-divider>
+                             <v-btn type="submit"  @click="dialog2 = false">Eliminar</v-btn>
+                            </v-flex>
+                           
+                             </v-layout>
+                             </v-container> 
+                             </v-form>
+                                    
+
+                                    <v-divider></v-divider>
+
+                                    <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn
+                                        color="primary"
+                                        text
+                                        @click="dialog2 = false"
+                                    >
+                                        Cerrar
+                                    </v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-dialog>
+                            <v-dialog v-if="this.paseterminar==true"
+                        v-model="dialog3"
+                        width="500"
+                        >
+                                <template v-slot:activator="{ on }">
+                                    <v-btn
+                                    color="blue lighten-2"
+                                    dark
+                                    v-on="on"
+                                    >
+                                    Marcar como Terminado
+                                    </v-btn>
+                                </template>
+
+                                <v-card>
+                                    <v-card-title
+                                    class="headline grey lighten-2"
+                                    primary-title
+                                    >
+                                    Seguro que Desea marcar como Terminado
+                                    </v-card-title>
+                                    <v-form @submit.prevent="" >
+                            <v-container fluid grid-list-md text-xs-center>
+                            <v-layout row wrap>
+                                 
+                               <v-flex  md12>
+
+                                     <v-text-field
+                                label='Objetivo Especifico'
+                                
+                                type='text'
+                             />
+                                </v-flex>
+                        
+                             
+                              
+                            <v-flex xs12 md12>
+                                <v-divider></v-divider>
+                             <v-btn type="submit"  @click="dialog3 = false">Terminar proyecto</v-btn>
+                            </v-flex>
+                           
+                             </v-layout>
+                             </v-container> 
+                             </v-form>
+                                    
+
+                                    <v-divider></v-divider>
+
+                                    <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn
+                                        color="primary"
+                                        text
+                                        @click="dialog3 = false"
+                                    >
+                                        Cerrar
+                                    </v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-dialog>
         <v-flex xs12 md12>
                 <v-layout row wrap>
                         <v-flex  class="mx-auto" xs12 md12>
@@ -196,10 +361,15 @@ import {mapGetters} from 'vuex'
           proyecto:[],
           tutores:[],
           tutor:0,
+          dialog: false,
+          dialog2: false,
+          dialog3: false,
           ruta:String(this.$route.params.codigo), 
+          paseterminar:false,
       }
     },
     mounted () {
+            let cargapase=0;
             var urlKeeps = '/captura/'+this.ruta;
                 axios.get(urlKeeps).then(response => {
                 this.proyecto = response.data;        
@@ -214,13 +384,22 @@ import {mapGetters} from 'vuex'
             });
             var actividadessurl = '/get-actividades-admin/'+this.ruta;
                 axios.get(actividadessurl).then(response => {
-               this.$store.commit('setActividades',response.data);  
+               this.$store.commit('setActividades',response.data); 
+               for(var k=0; k<response.data.length; k++){
+                cargapase=cargapase+response.data[k].horas_asignadas;
+                }
+            if(cargapase==60){
+                this.paseterminar=true;
+            }else{
+                this.paseterminar=false;
+            } 
              });
              var actividadesimagesurl = '/get-imagenes-admin/'+this.ruta;
                 axios.get(actividadesimagesurl).then(response => {
                this.$store.commit('setImagenes',response.data);  
                      
             });
+            
         },
      computed: {
         ...mapGetters(['filteredDocentes','filteredObjetivos','filteredEstudiantes','filteredActividades','filteredImagenes']),
