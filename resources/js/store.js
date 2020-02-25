@@ -17,6 +17,21 @@ export default new Vuex.Store({
        objetivos:[],
        actividades:[],
        Imagenes:[],
+       filterProyecto:{
+        codigo: '',
+        titulo: '',
+        objGeneral: '',
+      },
+      filterservicios:{
+        codigo: '',
+        titulo: '',
+        objGeneral: '',
+      },
+      filterEstudiante:{
+        cedula: '',
+        nombre: '',
+        apellido: '',
+      }
        
     },
     mutations:{
@@ -68,6 +83,15 @@ export default new Vuex.Store({
           state.actividades = actividades;
          
       },
+      setfilterEstudiante(state,data){
+        state.filterEstudiante[data['filter']]=data.value;
+    },
+    setfilterProyecto(state,data){
+      state.filterProyecto[data['filter']]=data.value;
+  },
+  setfilterServicio(state,data){
+    state.filterservicios[data['filter']]=data.value;
+},
     setImagenes(state,  Imagenes){
       state. Imagenes =  Imagenes;
      
@@ -78,17 +102,33 @@ export default new Vuex.Store({
       
       filteredProyectosPublicos (state) {
         let proyectos_publico = state.proyectos_publico;
-        
+        if (state.filterProyecto.codigo.length > 1) {
+          proyectos_publico = proyectos_publico.filter(proyecto => String(proyecto.codigo).includes(state.filterProyecto.codigo));
+        }
+        if (state.filterProyecto.titulo.length > 1) {
+          proyectos_publico = proyectos_publico.filter(proyecto => proyecto.titulo.includes(state.filterProyecto.titulo));
+        }
+        if (state.filterProyecto.objGeneral.length > 1) {
+          proyectos_publico = proyectos_publico.filter(proyecto => proyecto.objGeneral.includes(state.filterProyecto.objGeneral));
+        }
         return proyectos_publico;
       },
           filteredProyectos (state) {
             let proyectos = state.proyectos;
-            
+           
             return proyectos;
           },
           filteredServicio (state) {
             let servicios = state.servicios;
-            
+            if (state.filterservicios.codigo.length > 1) {
+              servicios = servicios.filter(proyecto => String(proyecto.codigo).includes(state.filterservicios.codigo));
+            }
+            if (state.filterservicios.titulo.length > 1) {
+              servicios = servicios.filter(proyecto => proyecto.titulo.includes(state.filterservicios.titulo));
+            }
+            if (state.filterservicios.objGeneral.length > 1) {
+              servicios = servicios.filter(proyecto => proyecto.objGeneral.includes(state.filterservicios.objGeneral));
+            }
             return servicios;
           },
           filteredPendientes (state) {
@@ -123,7 +163,15 @@ export default new Vuex.Store({
           },
           filteredEstudiantes (state) {
             let estudiantes = state.estudiantes;
-            
+            if (state.filterEstudiante.cedula.length > 1) {
+              estudiantes = estudiantes.filter(estudiante => String(estudiante.cedula).includes(state.filterEstudiante.cedula));
+            }
+            if (state.filterEstudiante.nombre.length > 1) {
+              estudiantes = estudiantes.filter(estudiante => estudiante.nombre.includes(state.filterEstudiante.nombre));
+            }
+            if (state.filterEstudiante.apellido.length > 1) {
+              estudiantes = estudiantes.filter(estudiante => estudiante.apellido.includes(state.filterEstudiante.apellido));
+            }
             return estudiantes;
           },
           filteredObjetivos (state) {
