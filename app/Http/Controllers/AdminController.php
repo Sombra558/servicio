@@ -109,4 +109,10 @@ class AdminController extends Controller
       ->get();
       return $usuarios;
     }
+    public function Marcarcomoterminado(Request $request, $codigo){
+        Proyecto::find($codigo)->update([
+            'estado' => 2,
+            ]);
+        return;
+    }
 }

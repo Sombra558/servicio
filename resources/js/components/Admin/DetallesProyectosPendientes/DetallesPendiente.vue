@@ -127,18 +127,11 @@
                                     >
                                     Seguro que Desea marcar como Terminado
                                     </v-card-title>
-                                    <v-form @submit.prevent="" >
+                                    <v-form @submit.prevent="MarcarComoListo" >
                             <v-container fluid grid-list-md text-xs-center>
                             <v-layout row wrap>
                                  
-                               <v-flex  md12>
-
-                                     <v-text-field
-                                label='Objetivo Especifico'
-                                
-                                type='text'
-                             />
-                                </v-flex>
+                              
                         
                              
                               
@@ -425,7 +418,30 @@ import {mapGetters} from 'vuex'
                   this.$router.push('/ControlAdmin');
     		})
             },
-           
+           MarcarComoListo: function() {
+            var url = '/marcarasignar/'+this.ruta;
+            axios.put(url,{
+                estado:2,
+            }).then(response => {
+                     var urlKeeps = '/proyectos';
+                        axios.get(urlKeeps).then(response => {
+                        this.$store.commit('setProyectos',response.data)
+                        });
+                        var urlKeeps1 = '/get-pendientes';
+                        axios.get(urlKeeps1).then(response => {
+                        this.$store.commit('setPendientes',response.data)
+                        });
+                        var urlKeeps2 = '/get-procesos';
+                        axios.get(urlKeeps2).then(response => {
+                        this.$store.commit('setProcesos',response.data)
+                        });
+                        var urlKeeps3 = '/get-terminados';
+                        axios.get(urlKeeps3).then(response => {
+                        this.$store.commit('setTerminados',response.data)
+                        });
+                  this.$router.push('/ControlAdmin');
+    		})
+            },
       }
   }
 </script>
