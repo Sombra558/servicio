@@ -71,4 +71,5 @@ Route::group(['middleware' => 'docente'], function () {
     Route::get('/get-imagenes/{id}', 'DocenteController@ImagenesDeActividad');
     Route::put('/asignar-horas/{cedula}', 'DocenteController@Asignarhoras');
     Route::resource('image', 'ImagesController');
+    Route::get('/define-bloqueo/{cedula}/{actividad}/{codigo}', 'DocenteController@definebloqueo');
 });
