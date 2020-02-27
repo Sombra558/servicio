@@ -80,7 +80,9 @@ class ActividadesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Actividad::find($id)->update([
+            'descripcion' => $request->descripcion,
+            ]);
     }
 
     /**

@@ -30,7 +30,7 @@ class PublicoController extends Controller
     {
         $proyecto = Proyecto::find($codigo);
         $objetivos = Objetivo::where('proyecto_codigo',$codigo)->get();
-        $estudiantes = Alumnos::where('proyecto_id',$codigo)->get();
+        $estudiantes = Alumnos::where('proyecto_id',$codigo)->orwhere('servicio_id',$codigo)->get();
         $actividades = Actividad::where('proyecto_id',$codigo)->get();
         $imagenes = Image::where('proyecto_id',$codigo)->get();
         if ($proyecto->tutor_id != null) {
@@ -52,6 +52,7 @@ class PublicoController extends Controller
     public function EstudianteFind($cedula)
     {
         $estudiante = Alumnos::find($cedula);
+        $servicio = Proyecto::find($estudiante->servicio_id);
         $proyecto = Proyecto::find($estudiante->proyecto_id);
         $servicio = Proyecto::find($estudiante->servicio_id);
         $horas_totales_de_estudiante=$estudiante->horas_acumuladas + $estudiante->horas_acumuladas_servicio;

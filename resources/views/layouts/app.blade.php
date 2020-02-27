@@ -94,10 +94,10 @@ width: 100%;
                                 <a class="nav-link" href="/">Inicio</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/proyectos-servicio-comunitario">Proyectos Servico Comunitarios</a>
+                                <a class="nav-link" href="/proyectos-servicio-comunitario">Proyectos Servicio Comunitarios</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link" href="/servicio-comunitario">Servico Comunitarios</a>
+                                <a class="nav-link" href="/servicio-comunitario">Servicio Comunitarios</a>
                             </li>
                     </ul>
 

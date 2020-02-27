@@ -80,7 +80,10 @@ class ObjetivosController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+         
+        Objetivo::find($id)->update([
+            'descripcion' => $request->descripcion,
+            ]);
     }
 
     /**
@@ -91,6 +94,6 @@ class ObjetivosController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Objetivo::find($id)->delete();
     }
 }

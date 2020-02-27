@@ -88,9 +88,10 @@ class ProyectoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $codigo)
     {
-        Proyecto::find($id)->update([
+        
+        Proyecto::find($codigo)->update([
             'titulo' => request('titulo'),
             'objGeneral' => request('objGeneral'),
             'comunidad' => request('comunidad'),

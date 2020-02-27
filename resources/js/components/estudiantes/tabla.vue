@@ -1,13 +1,14 @@
 <template>
 <div>
   <h2 class="title">Lista de <strong v-if="accion=='proyectos'">Proyectos</strong> <strong v-else-if="accion=='servicios'">Servicios de</strong> <strong v-else>Estudiantes Actualmente Cursando</strong>   Servicio Comunitario</h2>
-  <v-simple-table>
+  
+ <v-simple-table>
     <template v-slot:default v-if="accion=='proyectos'">
       <thead>
         <tr>
           <th class="text-left">Codigo</th>
           <th class="text-left">Titulo</th>
-          
+          <th class="text-left">Objetivo General</th>
           <th class="text-left">Estado</th>
           
         </tr>
@@ -16,6 +17,7 @@
         <tr v-for="proyecto in filteredProyectosPublicos" :key="proyecto.codigo">
                 <td>{{proyecto.codigo}}</td>
                 <td>{{proyecto.titulo}}</td>
+                <td>{{proyecto.objGeneral}}</td>
                 <td v-if="proyecto.estado==0">pendiente</td>
                 <td v-if="proyecto.estado==1">En Proceso</td>
                 <td v-if="proyecto.estado==2">Terminado</td>
@@ -29,7 +31,7 @@
         <tr>
           <th class="text-left">Codigo</th>
           <th class="text-left">Titulo</th>
-          
+          <th class="text-left">Objetivo General</th>
           <th class="text-left">Estado</th>
           
         </tr>
@@ -38,6 +40,7 @@
         <tr v-for="proyecto in filteredServicio" :key="proyecto.codigo">
                 <td>{{proyecto.codigo}}</td>
                 <td>{{proyecto.titulo}}</td>
+                <td>{{proyecto.objGeneral}}</td>
                 <td v-if="proyecto.estado==0">pendiente</td>
                 <td v-if="proyecto.estado==1">En Proceso</td>
                 <td v-if="proyecto.estado==2">Terminado</td>

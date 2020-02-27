@@ -161,7 +161,7 @@
                                     <v-form @submit.prevent=" AgregarActividad(proyecto.codigo)" >
                             <v-container fluid grid-list-md text-xs-center>
                             <v-layout row wrap>
-                                 
+                                 <v-flex  md12>
 
                                      <v-text-field
                                         label='Descripcion'
@@ -338,7 +338,8 @@
                             <th class="text-left">Apellido</th>
                             <th class="text-left">Cédula</th>
                             <th class="text-left">Horas Acumuladas</th>
-                            <th class="text-left">Accion</th>
+                            <th class="text-left">Editar</th>
+                            <th class="text-left">Eliminar</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -349,8 +350,14 @@
                             <td>{{ item2.cedula }}</td>
                             <td v-if="proyecto.tipo=='Proyecto Servicio Comunitario'">{{ item2.horas_acumuladas }}</td>
                                         <td v-else>{{ item2.horas_acumuladas_servicio }}</td>
-                            <td>editar-eliminar</td>
-                            
+                            <td>
+                                <v-btn type="button" class="btn btn-primary" data-toggle="modal" :data-target="'#modalestudiante-'+item2.cedula" >Editar Estudiante
+                                </v-btn>
+                            </td>
+                             <td>
+                                <v-btn @click.prevent="deleteestudiante(item2.cedula)">Elmininar Estudiante
+                                </v-btn>
+                            </td>
                         </tr>
                     </tbody>
                     </template>
@@ -369,15 +376,22 @@
                     <thead>
                         <tr>
                             <th class="text-left">descripción</th>
-                            <th class="text-left">acción</th>
-                            
+                            <th class="text-left">Editar</th>
+                            <th class="text-left">Eliminar</th>
                         </tr>
                     </thead>
                     <tbody>
                        
                         <tr v-for="item in filteredObjetivos" :key="item.codigoobj">
                             <td>{{ item.descripcion }}</td>
-                            <td>editar</td>
+                            <td>
+                                <v-btn type="button" class="btn btn-primary" data-toggle="modal" :data-target="'#modal-'+item.codigoobj" >Editar Objetivo
+                                </v-btn>
+                            </td>
+                            <td>
+                                <v-btn @click.prevent="deleteproyecto(item.codigoobj)">Elmininar Objetivo
+                                </v-btn>
+                            </td>
                             
                         </tr>
                     </tbody>
@@ -408,7 +422,9 @@
                             <td>{{ item.descripcion }}</td>
                             <td>{{ item.horas_asignadas }}</td>
                            
-                            <td>editar-eliminar</td>
+                            <td><v-btn type="button" class="btn btn-primary" data-toggle="modal" :data-target="'#modalactividad-'+item.actividad_id" >Editar Actividad
+                                </v-btn>
+                            </td>
                              <v-simple-table>
                                 <template v-slot:default>
                                 <thead>
@@ -469,6 +485,137 @@
                          </v-flex>
                          </v-layout> 
                          </v-card>
+                         <div v-for="item in filteredObjetivos" :key="item.codigoobj" class="modal fade" :id="'modal-'+item.codigoobj" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Objetivo</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                   <v-form @submit.prevent="editarobjetivo(item.codigoobj)">
+                                        <v-container fluid grid-list-md text-xs-center>
+                                        <v-layout row wrap>
+                                            
+                                                <v-flex  md12>
+                                                 <v-text-field
+                                                    label='Objetivo Especifico'
+                                                    v-model="objetivo.descripcion"
+                                                    type='text'
+                                                />
+                                                </v-flex>
+                        
+                             
+                              
+                            <v-flex xs12 md12>
+                                <v-divider></v-divider>
+                             <v-btn type="submit">Guardar</v-btn>
+                            </v-flex>
+                           
+                             </v-layout>
+                             </v-container> 
+                             </v-form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                            <div v-for="item in filteredActividades" :key="item.actividad_id" class="modal fade" :id="'modalactividad-'+item.actividad_id" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Actividad</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                   <v-form @submit.prevent="editaractividad(item.actividad_id)">
+                                        <v-container fluid grid-list-md text-xs-center>
+                                        <v-layout row wrap>
+                                            
+                                                <v-flex  md12>
+                                                 <v-text-field
+                                                    label='Descripcion de Actividad'
+                                                    v-model="actividad.descripcion"
+                                                    type='text'
+                                                />
+                                                </v-flex>
+                        
+                             
+                              
+                            <v-flex xs12 md12>
+                                <v-divider></v-divider>
+                             <v-btn type="submit">Guardar</v-btn>
+                            </v-flex>
+                           
+                             </v-layout>
+                             </v-container> 
+                             </v-form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                
+                                </div>
+                                </div>
+                            </div>
+                            </div>
+                             <div v-for="item2 in filteredEstudiantes" :key="item2.cedula" class="modal fade" :id="'modalestudiante-'+item2.cedula" tabindex="-1" role="dialog" aria-labelledby="exampleMdddodafflLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Estudiante</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                   <v-form @submit.prevent="editarestudiante(item2.cedula)">
+                                        <v-container fluid grid-list-md text-xs-center>
+                                        <v-layout row wrap>
+                                            
+                                               <v-flex  md12>
+
+                                     <v-text-field
+                                label='Nombre'
+                               
+                                 v-model="estudiante.nombre"
+                                type='text'
+                             />
+                                </v-flex>
+                                 <v-flex  md12>
+
+                                     <v-text-field
+                                   
+                                label='Apellido'
+                                 v-model="estudiante.apellido"
+                                type='text'
+                             />
+                                </v-flex>
+                        
+                             
+                              
+                            <v-flex xs12 md12>
+                                <v-divider></v-divider>
+                             <v-btn type="submit">Guardar</v-btn>
+                            </v-flex>
+                           
+                             </v-layout>
+                             </v-container> 
+                             </v-form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                
+                                </div>
+                                </div>
+                            </div>
+                            </div>
     </div>
 </template>
 
@@ -542,12 +689,70 @@ import 'bootstrap-sweetalert/dist/sweetalert.js';
           },
     },
     methods:{
+        editaractividad(id) {
+            var urldac = '/actividades/'+id;
+            axios.put(urldac,{
+                descripcion:this.actividad.descripcion,
+            }).then(response => {
+                            this.actividad.descripcion='';
+                            var actividadessurl = '/get-actividades/'+this.ruta;
+                            axios.get(actividadessurl).then(response => {
+                            this.$store.commit('setActividades',response.data);  
+                            });             
+    		})
+            },
+        editarestudiante(cedula) {
+            var urld = '/estudiantes/'+cedula;
+            axios.put(urld,{
+                nombre:this.estudiante.nombre,
+                apellido:this.estudiante.apellido,
+            }).then(response => {
+                            this.estudiante.nombre='';
+                            this.estudiante.apellido='';
+                            var estudiantessurl = '/get-estudiantes/'+this.ruta;
+                            axios.get(estudiantessurl).then(response => {
+                            this.$store.commit('setEstudiantes',response.data);   
+                    });        
+                             
+    		})
+            },
+            deleteestudiante(id) {
+                var urlKeeps = '/estudiantes/'+id;
+                    axios.delete(urlKeeps).then(response => {
+                        var estudiantessurl = '/get-estudiantes/'+this.ruta;
+                             axios.get(estudiantessurl).then(response => {
+                            this.$store.commit('setEstudiantes',response.data);   
+                    });       
+          })
+        },
+        editarobjetivo(id) {
+            var urld = '/objetivos/'+id;
+            axios.put(urld,{
+                descripcion:this.objetivo.descripcion,
+            }).then(response => {
+                            this.objetivo.descripcion='';
+                            var objetivosurl = '/get-objetivos/'+this.ruta;
+                                axios.get(objetivosurl).then(response => {
+                            this.$store.commit('setObjetivos',response.data);        
+                            });           
+    		})
+            },
+             deleteproyecto(id) {
+                var urlKeeps = '/objetivos/'+id;
+                    axios.delete(urlKeeps).then(response => {
+                        var objetivosurl = '/get-objetivos/'+this.ruta;
+                            axios.get(objetivosurl).then(response => {
+                            this.$store.commit('setObjetivos',response.data);        
+                    });
+          })
+        },
             CrearObjetivo(pro) {
                       var url = '/objetivos';
                         axios.post(url,{
                                 proyecto_codigo:pro,
                                 descripcion: this.objetivo.descripcion,
                         }).then(response => {
+                            this.objetivo.descripcion='';
                             var objetivosurl = '/get-objetivos/'+this.ruta;
                             axios.get(objetivosurl).then(response => {
                             this.$store.commit('setObjetivos',response.data);        
@@ -562,6 +767,9 @@ import 'bootstrap-sweetalert/dist/sweetalert.js';
                                 cedula:this.estudiante.cedula,
                                 proyecto_id:idpro,      
                         }).then(response => {
+                                this.estudiante.nombre='';
+                                this.estudiante.apellido='';
+                                this.estudiante.cedula='';
                              var estudiantessurl = '/get-estudiantes/'+this.ruta;
                                     axios.get(estudiantessurl).then(response => {
                                 this.$store.commit('setEstudiantes',response.data);        
@@ -582,6 +790,8 @@ import 'bootstrap-sweetalert/dist/sweetalert.js';
                                 horas_asignadas:this.actividad.horas_asignadas,
                                 proyecto_id:idapro,      
                         }).then(response => {
+                            this.actividad.descripcion='';
+                            this.actividad.horas_asignadas='';
                              var actividadessurl = '/get-actividades/'+this.ruta;
                                 axios.get(actividadessurl).then(response => {
                             this.$store.commit('setActividades',response.data);        
@@ -600,6 +810,8 @@ import 'bootstrap-sweetalert/dist/sweetalert.js';
             axios.post(url,formData,  {
             headers: { "Content-Type": "multipart/form-data" }
         }).then(response => {
+                this.imageni.semana='';
+                this.imageni.image='';
                 var actividadesimagesurl = '/get-imagenes/'+this.ruta;
                 axios.get(actividadesimagesurl).then(response => {
                this.$store.commit('setImagenes',response.data);  
@@ -650,7 +862,7 @@ import 'bootstrap-sweetalert/dist/sweetalert.js';
     		})
         } 
       },
-    
+        
       
   }
 </script>

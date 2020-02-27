@@ -6,9 +6,9 @@
 <!-- Provides the application the proper gutter -->
             <v-content>
             <v-container>
-            <v-flex  class="mx-auto" xs12 md12>
+            <v-flex  style="margin: 20px 0;"  class="mx-auto" xs12 md12>
                              
-                             <h3>Detalles de Proyecto</h3>
+                             <h3>Detalles de Proyecto Servicio Comunitario</h3>
                              <v-card
                         class="mx-auto"
                 max-width="100%"
@@ -41,10 +41,33 @@
                                
                              
                         </v-flex>
+                        <v-card-text>
+                        <v-card-text>
+                     <v-layout row wrap>
                         <v-flex class="text--primary text-left" xs6>
+                                <div class="texteando">Carrera: {{$proyecto->carrera}}</div>
+                                
+                        </v-flex>
+                     
+                </v-layout>
+                </v-card-text>
+                     <v-layout row wrap>
+                         <v-flex class="text--primary text-left" xs6>
+                                <div class="texteando">Fecha de Inicio: {{$proyecto->inicio}}</div>
+                                <div></div> 
+                            </v-flex> 
+                        <v-flex class="text--primary text-right" xs6>
+                                <div class="texteando">Fecha fin: {{$proyecto->fin}}</div>
+                                <div></div> 
+                        </v-flex>
+                    </v-layout>
+                    <br>
+                <v-flex class="text--primary text-left" xs6>
                                 <div class="texteando">Profesor:</div>
                                 {{$profesor->name}}
                         </v-flex>
+                </v-card-text>
+                      
                 </v-layout>
                 </v-card-text>
                
@@ -53,7 +76,7 @@
 
           
         </v-flex>
-
+        
             
             <v-layout row wrap>
                 <v-flex style="margin-bottom: 40px" xs12 md6>
