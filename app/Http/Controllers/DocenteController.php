@@ -9,6 +9,7 @@ use App\Objetivo;
 use App\Alumnos;
 use App\Image;
 use App\Actividad;
+use App\Bloqueoactividad;
 class DocenteController extends Controller
 {
     public function index(){
@@ -62,24 +63,38 @@ class DocenteController extends Controller
     }
     public function Asignarhoras(Request $request, $cedula)
     {
-        
-        $proyecto=Proyecto::find($request->codigo);
+       
+            $proyecto=Proyecto::find($request->codigo);
      
-        if($proyecto->tipo=="Proyecto Servicio Comunitario"){
-         
-            Alumnos::find($cedula)->update([
-                'horas_acumuladas' => request('horas_acumuladas'),
-            ]);
-        }
-        if($proyecto->tipo=="Servicio Comunitario") {
+            if($proyecto->tipo=="Proyecto Servicio Comunitario"){
+             
+                Alumnos::find($cedula)->update([
+                    'horas_acumuladas' => request('horas_acumuladas'),
+                ]);
+                Bloqueoactividad::create([
+                    'actividad_id_r' => $request->actividad_id_r,
+                    'proyecto_id' => $request->codigo,
+                    'alumno_id' => $cedula,
+                ]);
+            }
+            if($proyecto->tipo=="Servicio Comunitario") {
         
-            Alumnos::find($cedula)->update([
-                'horas_acumuladas_servicio' => request('horas_acumuladas'),
-            ]);
-        }
+                Alumnos::find($cedula)->update([
+                    'horas_acumuladas_servicio' => request('horas_acumuladas'),
+                ]);
+                Bloqueoactividad::create([
+                    'actividad_id_r' => $request->actividad_id_r,
+                    'proyecto_id' => $request->codigo,
+                    'alumno_id' => $cedula,
+                ]);
+                }
+            
+                return; 
         
-        
-        
-        return;
     }
+    public function definebloqueo($cedula,$actividad,$codigo){
+        $bloqueo=Bloqueoactividad::where('alumno_id',$cedula)->where('actividad_id_r',$actividad)->where('proyecto_id',$codigo)->get();
+        return $bloqueo;
+    }
+    
 }

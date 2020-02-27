@@ -444,11 +444,11 @@
                                         <td v-if="proyecto.tipo=='Proyecto Servicio Comunitario'">{{ alum.horas_acumuladas }}</td>
                                         <td v-else>{{ alum.horas_acumuladas_servicio }}</td>
                                         <td v-if="proyecto.tipo=='Proyecto Servicio Comunitario'"><v-btn @click.prevent=" AsignarHoras(alum.cedula,alum.horas_acumuladas,
-                                        item.horas_asignadas,proyecto.codigo)">asignar horas Proyecto</v-btn>
+                                        item.horas_asignadas,proyecto.codigo,item.actividad_id)">asignar horas Proyecto</v-btn>
                                         </td>
                                         <td v-else>
                                             <v-btn @click.prevent=" AsignarHoras(alum.cedula,alum.horas_acumuladas_servicio,
-                                            item.horas_asignadas,proyecto.codigo)">asignar horas Servicio</v-btn>
+                                            item.horas_asignadas,proyecto.codigo,item.actividad_id)">asignar horas Servicio</v-btn>
                                         </td>
                                     </tr>
                                 </tbody>
@@ -846,20 +846,30 @@ import 'bootstrap-sweetalert/dist/sweetalert.js';
             });
         
         },
-        AsignarHoras(id,horas_acu,horas_asig,codigo){
-            
-            var url = '/asignar-horas/'+id;
-            horas_acu=horas_acu + horas_asig;
-            axios.put(url,{
-                horas_acumuladas:horas_acu,
-                codigo:codigo,
+        AsignarHoras(id,horas_acu,horas_asig,codigo,actividad){
+            var definerul=`/define-bloqueo/${id}/${actividad}/${codigo}`;
+            axios.get(definerul).then(response => {
+                if(response.data.length>0){
+                         swal("error","¡Horas de actividad asignadas!","error");
+                }
+                else{
+                    var url = '/asignar-horas/'+id;
+                    horas_acu=horas_acu + horas_asig;
+                    axios.put(url,{
+                        horas_acumuladas:horas_acu,
+                        codigo:codigo,
+                        actividad_id_r:actividad,
 
-            }).then(response => { 
-                var estudiantessurl = '/get-estudiantes/'+this.ruta;
-                axios.get(estudiantessurl).then(response => {
-                this.$store.commit('setEstudiantes',response.data);        
-            });       
-    		})
+                    }).then(response => { 
+                        console.log(response);
+                        var estudiantessurl = '/get-estudiantes/'+this.ruta;
+                        axios.get(estudiantessurl).then(response => {
+                        this.$store.commit('setEstudiantes',response.data);        
+                    });       
+    		        })
+                }
+            });
+            
         } 
       },
         
