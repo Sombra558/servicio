@@ -6,6 +6,7 @@ import GeneralAdmin from './components/Admin/ControlGeneral/ControlGeneral';
 import Registrar from './components/Admin/Registrar/VerificarComponent';
 import Pendientes from './components/Admin/ProyectosPendientes/ProyectosPendientes';
 import Procesos from './components/Admin/ProyectosAprobados/ProyectosAprobados';
+import Todos from './components/Admin/ProyectosRegistrados/ProyectosRegistrados';
 import Terminados from './components/Admin/ProyectosTerminados/ProyectosTerminados';
 import DetallesPendiente from './components/Admin/DetallesProyectosPendientes/DetallesPendiente';
 
@@ -49,6 +50,12 @@ const router = new Router({
           name:'proyectospendientes',
           component: Pendientes,
           meta: { title: 'Pendiente de Proyecto' },
+        },
+        {
+          path: 'Proyectos-Todos',
+          name:'proyectostodos',
+          component: Todos,
+          meta: { title: 'Todos los Proyecto' },
         },
         {
           path: 'Proyetos-Procesos',

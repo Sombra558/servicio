@@ -112,7 +112,11 @@ class EstudiantesController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+         
+        Alumnos::find($id)->update([
+            'nombre' => $request->nombre,
+            'apellido' => $request->apellido,
+            ]);
     }
 
     /**
@@ -123,6 +127,6 @@ class EstudiantesController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Alumnos::find($id)->delete();
     }
 }

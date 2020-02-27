@@ -1,6 +1,213 @@
 <template>
     <div>
-   
+        <v-dialog v-if="proyecto.estado==0"
+                        v-model="dialog"
+                        width="500"
+                        >
+                                <template v-slot:activator="{ on }">
+                                    <v-btn
+                                    color="blue lighten-2"
+                                    dark
+                                    v-on="on"
+                                    >
+                                    Editar Proyecto
+                                    </v-btn>
+                                </template>
+
+                                <v-card>
+                                    <v-card-title
+                                    class="headline grey lighten-2"
+                                    primary-title
+                                    >
+                                    Editando Proyecto
+                                    </v-card-title>
+                                    <v-form @submit.prevent="editarproyecto(proyecto.codigo)" >
+                                        <v-container fluid grid-list-md text-xs-center>
+                                        <v-layout row wrap>
+                                             <v-flex  xs10  offset-xs1>
+                                                <v-text-field
+                                                    v-model="proyecto.titulo"
+                                                    label="Titulo"
+                                                        required
+                                                ></v-text-field>
+                                             </v-flex>
+                                            <v-flex  xs10  offset-xs1>
+                                                <v-text-field
+                                                    v-model="proyecto.objGeneral"
+                                                    label="Obgetivo General"
+                                                    required
+                                                ></v-text-field>
+                                            </v-flex>
+                                            <v-flex  xs10  offset-xs1>
+                                                <v-text-field
+                                                    v-model="proyecto.comunidad"
+                                                    label="Comunidad"
+                                                    required
+                                                ></v-text-field>
+                                            </v-flex>
+                                            <v-flex  xs10  offset-xs1>
+                                                <v-select
+                                                    label="Carreras"
+                                                    :items="carreras"
+                                                    v-model="proyecto.carrera"
+                                                    item-text="carrera"
+                                                    item-value='carrera'
+                                                ></v-select>
+                                            </v-flex>
+                                        <v-flex  xs10  offset-xs1>
+                                                <v-select
+                                                    label="Tipo"
+                                                    :items="tipos"
+                                                    v-model="proyecto.tipo"
+                                                    item-text="tipo"
+                                                    item-value='tipo'
+                                                ></v-select>
+                                        </v-flex>
+                                         <v-flex  xs10  offset-xs1>
+                                       
+                                                <v-date-picker
+                                                v-model="proyecto.inicio"
+                                                
+                                            ></v-date-picker>
+                                        </v-flex>
+                                        <v-flex  xs10  offset-xs1>
+                                                 <v-date-picker
+                                                v-model="proyecto.fin"
+                                                label='Fecha Fin'
+                                                ></v-date-picker>
+                                        </v-flex>
+                             
+                              
+                            <v-flex xs12 md12>
+                                <v-divider></v-divider>
+                             <v-btn type="submit"  @click="dialog = false">Guardar</v-btn>
+                            </v-flex>
+                           
+                             </v-layout>
+                             </v-container> 
+                             </v-form>
+                                    
+
+                                    <v-divider></v-divider>
+
+                                    <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn
+                                        color="primary"
+                                        text
+                                        @click="dialog = false"
+                                    >
+                                        Cerrar
+                                    </v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-dialog>
+                            <v-dialog v-if="proyecto.estado==0"
+                        v-model="dialog2"
+                        width="500"
+                        >
+                                <template v-slot:activator="{ on }">
+                                    <v-btn
+                                    color="blue lighten-2"
+                                    dark
+                                    v-on="on"
+                                    >
+                                    Eliminar Proyecto
+                                    </v-btn>
+                                </template>
+
+                                <v-card>
+                                    <v-card-title
+                                    class="headline grey lighten-2"
+                                    primary-title
+                                    >
+                                    Seguro que desea eliminar el proyecto
+                                    </v-card-title>
+                                    <v-form @submit.prevent="deleteproyecto(proyecto.codigo)" >
+                            <v-container fluid grid-list-md text-xs-center>
+                            <v-layout row wrap>
+                                 
+                               
+                        
+                             
+                              
+                            <v-flex xs12 md12>
+                                <v-divider></v-divider>
+                             <v-btn type="submit"  @click="dialog2 = false">Eliminar</v-btn>
+                            </v-flex>
+                           
+                             </v-layout>
+                             </v-container> 
+                             </v-form>
+                                    
+
+                                    <v-divider></v-divider>
+
+                                    <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn
+                                        color="primary"
+                                        text
+                                        @click="dialog2 = false"
+                                    >
+                                        Cerrar
+                                    </v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-dialog>
+                            <v-dialog v-if="this.paseterminar==true"
+                        v-model="dialog3"
+                        width="500"
+                        >
+                                <template v-slot:activator="{ on }">
+                                    <v-btn
+                                    color="blue lighten-2"
+                                    dark
+                                    v-on="on"
+                                    >
+                                    Marcar como Terminado
+                                    </v-btn>
+                                </template>
+
+                                <v-card>
+                                    <v-card-title
+                                    class="headline grey lighten-2"
+                                    primary-title
+                                    >
+                                    Seguro que Desea marcar como Terminado
+                                    </v-card-title>
+                                    <v-form @submit.prevent="MarcarComoListo" >
+                            <v-container fluid grid-list-md text-xs-center>
+                            <v-layout row wrap>
+                                 
+                              
+                        
+                             
+                              
+                            <v-flex xs12 md12>
+                                <v-divider></v-divider>
+                             <v-btn type="submit"  @click="dialog3 = false">Terminar proyecto</v-btn>
+                            </v-flex>
+                           
+                             </v-layout>
+                             </v-container> 
+                             </v-form>
+                                    
+
+                                    <v-divider></v-divider>
+
+                                    <v-card-actions>
+                                    <v-spacer></v-spacer>
+                                    <v-btn
+                                        color="primary"
+                                        text
+                                        @click="dialog3 = false"
+                                    >
+                                        Cerrar
+                                    </v-btn>
+                                    </v-card-actions>
+                                </v-card>
+                            </v-dialog>
         <v-flex xs12 md12>
                 <v-layout row wrap>
                         <v-flex  class="mx-auto" xs12 md12>
@@ -196,10 +403,55 @@ import {mapGetters} from 'vuex'
           proyecto:[],
           tutores:[],
           tutor:0,
+          dialog: false,
+          dialog2: false,
+          dialog3: false,
           ruta:String(this.$route.params.codigo), 
+          paseterminar:false,
+          carreras:[
+                    {
+                    id:1,
+                    carrera:'Ingenieria en Sistemas'
+                    },
+                    {
+                    id:2,
+                    carrera:'Ingenieria Electronica'
+                    },
+                    {
+                    id:3,
+                    carrera:'Ingenieria Electrica'
+                    },
+                    {
+                    id:4,
+                    carrera:'Ingenieria Civil'
+                    },
+                    {
+                    id:5,
+                    carrera:'Ingenieria en Mantenimiento mecanico'
+                    },
+                    {
+                    id:6,
+                    carrera:'Ingenieria Industrial'
+                    },
+                    {
+                    id:7,
+                    carrera:'Arquitectura'
+                    }
+                ],
+                tipos:[
+                    {
+                    id:1,
+                    tipo:'Servicio Comunitario'
+                    },
+                    {
+                    id:2,
+                    tipo:'Proyecto Servicio Comunitario'
+                    }
+                ]
       }
     },
     mounted () {
+            let cargapase=0;
             var urlKeeps = '/captura/'+this.ruta;
                 axios.get(urlKeeps).then(response => {
                 this.proyecto = response.data;        
@@ -214,13 +466,22 @@ import {mapGetters} from 'vuex'
             });
             var actividadessurl = '/get-actividades-admin/'+this.ruta;
                 axios.get(actividadessurl).then(response => {
-               this.$store.commit('setActividades',response.data);  
+               this.$store.commit('setActividades',response.data); 
+               for(var k=0; k<response.data.length; k++){
+                cargapase=cargapase+response.data[k].horas_asignadas;
+                }
+            if(cargapase==60){
+                this.paseterminar=true;
+            }else{
+                this.paseterminar=false;
+            } 
              });
              var actividadesimagesurl = '/get-imagenes-admin/'+this.ruta;
                 axios.get(actividadesimagesurl).then(response => {
                this.$store.commit('setImagenes',response.data);  
                      
             });
+            
         },
      computed: {
         ...mapGetters(['filteredDocentes','filteredObjetivos','filteredEstudiantes','filteredActividades','filteredImagenes']),
@@ -246,7 +507,82 @@ import {mapGetters} from 'vuex'
                   this.$router.push('/ControlAdmin');
     		})
             },
-           
+           MarcarComoListo: function() {
+            var url = '/marcarasignar/'+this.ruta;
+            axios.put(url,{
+                estado:2,
+            }).then(response => {
+                     var urlKeeps = '/proyectos';
+                        axios.get(urlKeeps).then(response => {
+                        this.$store.commit('setProyectos',response.data)
+                        });
+                        var urlKeeps1 = '/get-pendientes';
+                        axios.get(urlKeeps1).then(response => {
+                        this.$store.commit('setPendientes',response.data)
+                        });
+                        var urlKeeps2 = '/get-procesos';
+                        axios.get(urlKeeps2).then(response => {
+                        this.$store.commit('setProcesos',response.data)
+                        });
+                        var urlKeeps3 = '/get-terminados';
+                        axios.get(urlKeeps3).then(response => {
+                        this.$store.commit('setTerminados',response.data)
+                        });
+                  this.$router.push('/ControlAdmin');
+    		})
+            },
+             editarproyecto: function(codigo) {
+            var urld = '/editarproyecto/'+codigo;
+            axios.put(urld,{
+                titulo:this.proyecto.titulo,
+                objGeneral:this.proyecto.objGeneral,
+                comunidad:this.proyecto.comunidad,
+                tipo:this.proyecto.titulo,
+                carrera:this.proyecto.carrera,
+                inicio:this.proyecto.inicio,
+                fin:this.proyecto.fin,
+            }).then(response => {
+                        var urlKeeps = '/proyectos';
+                        axios.get(urlKeeps).then(response => {
+                        this.$store.commit('setProyectos',response.data)
+                        });
+                        var urlKeeps1 = '/get-pendientes';
+                        axios.get(urlKeeps1).then(response => {
+                        this.$store.commit('setPendientes',response.data)
+                        });
+                        var urlKeeps2 = '/get-procesos';
+                        axios.get(urlKeeps2).then(response => {
+                        this.$store.commit('setProcesos',response.data)
+                        });
+                        var urlKeeps3 = '/get-terminados';
+                        axios.get(urlKeeps3).then(response => {
+                        this.$store.commit('setTerminados',response.data)
+                        });
+                        
+    		})
+            },
+            deleteproyecto: function(codigo) {
+                var urlKeeps = '/eliminarproyecto/'+codigo;
+                    axios.delete(urlKeeps).then(response => {
+                    var urlKeeps = '/proyectos';
+                        axios.get(urlKeeps).then(response => {
+                        this.$store.commit('setProyectos',response.data)
+                        });
+                        var urlKeeps1 = '/get-pendientes';
+                        axios.get(urlKeeps1).then(response => {
+                        this.$store.commit('setPendientes',response.data)
+                        });
+                        var urlKeeps2 = '/get-procesos';
+                        axios.get(urlKeeps2).then(response => {
+                        this.$store.commit('setProcesos',response.data)
+                        });
+                        var urlKeeps3 = '/get-terminados';
+                        axios.get(urlKeeps3).then(response => {
+                        this.$store.commit('setTerminados',response.data)
+                        });
+                  this.$router.push('/ControlAdmin');
+          })
+        },
       }
   }
 </script>

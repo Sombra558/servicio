@@ -67,9 +67,7 @@
                                 {{$profesor->name}}
                         </v-flex>
                 </v-card-text>
-                        <v-flex class="text--primary text-center" xs12> 
-                        <a href="/proyecto-get-publico/{{$proyecto->codigo}}">Detalles</a>
-                        </v-flex>
+                      
                 </v-layout>
                 </v-card-text>
                

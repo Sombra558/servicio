@@ -50,6 +50,9 @@ Route::group(['middleware' => 'admin'], function () {
     Route::put('/update/{id}', 'AdminController@updaterole');
     Route::get('/user/porempleados', 'AdminController@getfuturosempleados');
     Route::get('/user/{id}', 'AdminController@getfuturosempleado');
+    Route::put('/marcarasignar/{codigo}', 'AdminController@Marcarcomoterminado');
+    Route::put('/editarproyecto/{codigo}', 'AdminController@Edipro');
+    Route::delete('/eliminarproyecto/{codigo}', 'AdminController@deletepro');
 });
 Route::group(['middleware' => 'docente'], function () {
     Route::get('/Docente', 'DocenteController@index');

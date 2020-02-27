@@ -109,4 +109,27 @@ class AdminController extends Controller
       ->get();
       return $usuarios;
     }
+    public function Marcarcomoterminado(Request $request, $codigo){
+        Proyecto::find($codigo)->update([
+            'estado' => 2,
+            ]);
+        return;
+    }
+    public function Edipro(Request $request, $codigo)
+    {
+        Proyecto::find($codigo)->update([
+            'titulo' => request('titulo'),
+            'objGeneral' => request('objGeneral'),
+            'comunidad' => request('comunidad'),
+            'carrera' => request('carrera'),
+            'tipo' => request('tipo'),
+            'inicio' => request('inicio'),
+            'fin' => request('fin'),
+            ]);
+        return;
+    }
+    public function deletepro($codigo)
+    {
+        Proyecto::find($codigo)->delete();
+    }
 }
