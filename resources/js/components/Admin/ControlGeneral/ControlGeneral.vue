@@ -5,7 +5,7 @@
                             light
                         >
             <v-flex  xs10  offset-xs1>
-                    <h1>Bienvenido al Control Administrativo de Servicio Comunitario</h1>
+                    <h1>Bienvenido al Control Administrativo de Proyectos de Servicio Comunitario</h1>
                     <br>
                     <h4>Datos</h4>
                    

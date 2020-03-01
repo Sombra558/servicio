@@ -1,7 +1,7 @@
 <template>
     <div>
         <v-flex xs12 md10 offset-md-1> 
-            <h3>Proyectos en Terminados</h3>
+            <h3>Total Proyectos</h3>
             <v-card v-if="filteredProyectos.length">
                 
             <v-simple-table>
@@ -39,7 +39,7 @@
             </v-simple-table>
             </v-card>
             <v-card v-else>
-                no se encuentran proyectos registrado
+                No se encuentran proyectos registrados
             </v-card>
         </v-flex>
     </div>

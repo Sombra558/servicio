@@ -22,7 +22,7 @@
                             <v-text-field
                             
                              v-model="proyecto.objGeneral"
-                             label="Obgetivo General"
+                             label="Objetivo General"
                              required
                             ></v-text-field>
                             </v-flex>

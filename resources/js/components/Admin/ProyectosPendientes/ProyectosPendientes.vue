@@ -36,7 +36,7 @@
             </v-simple-table>
             </v-card>
             <v-card v-else>
-                no se encuentran proyectos pendientes
+                No se encuentran proyectos pendientes
             </v-card>
         </v-flex>
     </div>
